@@ -21,10 +21,16 @@ Movie.init({
         //console.log('Connection to the database succesful!');
         const movieInstances = await Promise.all([
             Movie.create({
-                title: 'Toy Story'
+                title: 'Toy Story',
+                runtime: 81,
+                releaseDate: '1995-11-22',
+                isAvailableOnVHS: true,
             }),
             Movie.create({
-                title: 'The Incredibles'
+                title: 'The Incredibles',
+                runtime: 115,
+                releaseDate: '2004-04-14',
+                isAvailableOnVHS: true,
             }),
         ]);
         const moviesJSON = movieInstances.map(movie => movie.toJSON());
