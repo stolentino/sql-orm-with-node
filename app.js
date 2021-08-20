@@ -21,9 +21,9 @@ Movie.init({
         //console.log('Connection to the database succesful!');
         const movieInstances = await Promise.all([
             Movie.create({
-                title: 'Toy Story',
-                runtime: 81,
-                releaseDate: '1995-11-22',
+                title: '',
+                runtime: -81,
+                releaseDate: '1495-11-22',
                 isAvailableOnVHS: true,
             }),
             Movie.create({
@@ -49,5 +49,11 @@ Movie.init({
 
     }catch(error){
         console.error('Error connecting to the database: ', error);
+        if(error.name === 'SequelizeValidationError'){
+            const errors = error.errors.map(err => err.message);
+            console.error('Validation errors: ', errors);
+        }else{
+            throw error;
+        }
     }
 })();
