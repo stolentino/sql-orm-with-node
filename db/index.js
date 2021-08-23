@@ -3,7 +3,12 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'movies.db',
-    logging: false
+    logging: false,
+    //global options
+    define: {
+        timestamps: false,
+        freezeTableName: true,
+    }
 });
 
 const db = {
