@@ -21,9 +21,9 @@ Movie.init({
         //console.log('Connection to the database succesful!');
         const movieInstances = await Promise.all([
             Movie.create({
-                title: '',
-                runtime: -81,
-                releaseDate: '1495-11-22',
+                title: 'Toy Story',
+                runtime: 81,
+                releaseDate: '1995-11-22',
                 isAvailableOnVHS: true,
             }),
             Movie.create({
