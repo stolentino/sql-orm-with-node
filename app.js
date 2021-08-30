@@ -1,5 +1,6 @@
 const db = require('./db');
-const { Movie } = db.models;
+//const person = require('./db/models/person');
+const { Movie, Person } = db.models;
 
 /*const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -19,7 +20,7 @@ Movie.init({
     try{
         //await sequelize.authenticate();
         //console.log('Connection to the database succesful!');
-        const movieInstances = await Promise.all([
+        const newInstances = await Promise.all([
             Movie.create({
                 title: 'Toy Story',
                 runtime: 81,
@@ -32,8 +33,14 @@ Movie.init({
                 releaseDate: '2004-04-14',
                 isAvailableOnVHS: true,
             }),
+
+            Person.create({
+                firstName: 'Tom',
+                lastName: 'Hanks',
+            }),
+            //console.log(person.toJSON);
         ]);
-        const moviesJSON = movieInstances.map(movie => movie.toJSON());
+        const moviesJSON = newInstances.map(movie => movie.toJSON());
         console.log(moviesJSON);
         
         /*await Movie.create({
@@ -46,6 +53,7 @@ Movie.init({
             title: 'The Incredibles'
         });*/
         //console.log(movie2.toJSON());
+        
 
     }catch(error){
         console.error('Error connecting to the database: ', error);
