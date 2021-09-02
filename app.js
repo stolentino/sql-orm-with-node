@@ -39,6 +39,13 @@ Movie.init({
                 lastName: 'Hanks',
             }),
             //console.log(person.toJSON);
+
+            Movie.build({
+                title: 'Toy Story 3',
+                runtime: 103,
+                releaseDate: '2010-06-18',
+                isAvailableOnVHS: false,
+            }).save()
         ]);
         const moviesJSON = newInstances.map(movie => movie.toJSON());
         console.log(moviesJSON);
