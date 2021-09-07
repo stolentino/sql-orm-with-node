@@ -1,4 +1,5 @@
 const db = require('./db');
+const movie = require('./db/models/movie');
 //const person = require('./db/models/person');
 const { Movie, Person } = db.models;
 
@@ -46,9 +47,33 @@ Movie.init({
                 releaseDate: '2010-06-18',
                 isAvailableOnVHS: false,
             }).save()
+
         ]);
         const moviesJSON = newInstances.map(movie => movie.toJSON());
         console.log(moviesJSON);
+
+        const movieById = await Movie.findByPk(3);
+        console.log(movieById.toJSON());
+
+        const movieByRuntime = await Movie.findOne({ where: {runtime: 115}});
+        console.log(movieByRuntime.toJSON());
+
+        const personByLastName = await Person.findOne({where: {lastName: 'Hanks'}});
+        console.log(personByLastName.toJSON());
+
+        const personById = await Person.findByPk(1);
+        console.log(personById.toJSON());
+
+        const movies = await Movie.findAll();
+        console.log( movies.map(movie => movie.toJSON()) );
+
+        const people = await Person.findAll({
+            where: {
+                lastName: 'Hanks'
+            }
+        });
+        //Select * FROM People where lastName = 'Hanks';
+        console.log( people.map(person => person.toJSON()) );
         
         /*await Movie.create({
             title: 'Toy Story'
