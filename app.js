@@ -74,6 +74,15 @@ Movie.init({
         });
         //Select * FROM People where lastName = 'Hanks';
         console.log( people.map(person => person.toJSON()) );
+
+        const moviesWHERE = await Movie.findAll({
+            where: {
+                runtime: 92,
+                isAvailableOnVHS: true
+            }
+        });
+        //Select * fromm movies where runtime = 92 and isAvailableOnVHS = true;
+        console.log( moviesWHERE.map(movie => movie.toJSON()) );
         
         /*await Movie.create({
             title: 'Toy Story'
