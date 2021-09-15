@@ -2,6 +2,7 @@ const db = require('./db');
 const movie = require('./db/models/movie');
 //const person = require('./db/models/person');
 const { Movie, Person } = db.models;
+const { Op } = db.Sequelize;
 
 /*const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -64,7 +65,12 @@ Movie.init({
         const personById = await Person.findByPk(1);
         console.log(personById.toJSON());
 
-        const movies = await Movie.findAll();
+        const movies = await Movie.findAll({
+            attributes: ['id', 'title'], //return only id and title
+            where: {
+                isAvailableOnVHS: true,
+            },
+        });
         console.log( movies.map(movie => movie.toJSON()) );
 
         const people = await Person.findAll({
@@ -77,12 +83,34 @@ Movie.init({
 
         const moviesWHERE = await Movie.findAll({
             where: {
-                runtime: 92,
+                runtime: 81,
                 isAvailableOnVHS: true
             }
         });
         //Select * fromm movies where runtime = 92 and isAvailableOnVHS = true;
         console.log( moviesWHERE.map(movie => movie.toJSON()) );
+
+        const moviesATTR = await Movie.findAll({
+            attributes: ['id', 'title', 'releaseDate'], //return only id and title and releaseDate
+            where: {
+                //isAvailableOnVHS: true,
+                releaseDate: {
+                    [Op.gte]: '1985-01-01', // greater than or equal to the date
+                },
+                runtime: {
+                    [Op.gt]: 70, //greater than 95
+                },
+                title: {
+                    [Op.startsWith]: 'toy',
+                },
+                runtime: {
+                    [Op.between]: [75, 115],
+                },
+            },
+            order: [['releaseDate', 'ASC']], //IDs in descending order
+        });
+        console.log(moviesATTR.map(movie => movie.toJSON()) );
+
         
         /*await Movie.create({
             title: 'Toy Story'
