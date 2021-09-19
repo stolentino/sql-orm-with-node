@@ -55,6 +55,7 @@ module.exports = (sequelize) => {
     }, 
     // Model options
     { 
+        paranoid: true, //enalbe soft deletes
         timestamps: false,//disable timestamps
         freezeTableName: true,//disable plural table names
         modelName: 'movie',//set model name to 'movie'; table name will be 'movies'
