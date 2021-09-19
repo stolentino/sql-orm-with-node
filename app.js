@@ -111,6 +111,23 @@ Movie.init({
         });
         console.log(moviesATTR.map(movie => movie.toJSON()) );
 
+        const toyStory3 = await Movie.findByPk(3);
+        //toyStory3.isAvailableOnVHS = false;
+        //await toyStory3.save(); //using save
+        await toyStory3.update({  //using update
+            title: 'Trinket Tale 3', //new title
+            isAvailableOnVHS: true,
+        }, { fields: ['title', 'isAvailableOnVHS'] });
+        console.log(toyStory3.get({ plain: true }) );
+
+        const toyStory = await Movie.findByPk(1);
+
+        await toyStory.destroy();
+
+        const moviesDelete = await Movie.findAll();
+        console.log( moviesDelete.map(movie => movie.toJSON()) );
+
+
         
         /*await Movie.create({
             title: 'Toy Story'
